@@ -1,0 +1,9 @@
+Name: core-api
+Host: 127.0.0.1
+Port: 8081
+
+app:
+  mode: "dev"
+  name: "web_app"
+Mysql:
+  DataSource: root:123456@tcp(127.0.0.1:3306)/latex?charset=utf8mb4&parseTime=True&loc=Local
