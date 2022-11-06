@@ -9,26 +9,27 @@ type PdfReply struct {
 }
 
 type LatexGenerateRequest struct {
-	T1  string `json:"t1"`
-	T2  string `json:"t2"`
-	T3  string `json:"t3"`
-	T4  string `json:"t4"`
-	T5  string `json:"t5"`
-	T6  string `json:"t6"`
-	T7  string `json:"t7"`
-	T8  string `json:"t8"`
-	T9  string `json:"t9"`
-	T10 string `json:"t10"`
-	T11 string `json:"t11"`
-	T12 string `json:"t12"`
-	T13 string `json:"t13"`
-	T14 string `json:"t14"`
-	T15 string `json:"t15"`
-	T16 string `json:"t16"`
-	T17 string `json:"t17"`
-	T18 string `json:"t18"`
-	T19 string `json:"t19"`
-	T20 string `json:"t20"`
+	Title            string     `json:"title"`
+	Subject          string     `json:"subject"`
+	GroupLeaderName  string     `json:"groupLeaderName"`
+	GroupMemberName  string     `json:"groupMemberName"`
+	Classes          string     `json:"classes"`
+	Teacher          string     `json:"teacher"`
+	Company          string     `json:"company"`
+	LeaderWorkDivide []*Content `json:"leaderWorkDivide"`
+	MemberWorkDivide []*Content `json:"memberWorkDivide"`
+	Requirement      []*Content `json:"requirement"`
+	DemandAnalysis   []*Content `json:"demandAnalysis"`
+	OutlineDesign    []*Content `json:"outlineDesign"`
+	SourceCode       []*Content `json:"sourceCode"`
+	TestAndResult    []*Content `json:"testAndResult"`
+	Question         []*Content `json:"question"`
+	Summary          []*Content `json:"summary"`
+}
+
+type Content struct {
+	Type        string   `json:"type"`
+	TextContent []string `json:"textContent"`
 }
 
 type LatexGenerateReply struct {

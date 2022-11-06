@@ -43,3 +43,15 @@ var T19 = "}\n\n\\section{调试过程中的问题}\n{"
 var T20 = "}\n\n\\section{课程设计总结}\n{"
 
 var T21 = "}\n\n\\newpage\n\n\\begin{thebibliography}{99}\n    \\bibitem{a}作者. \\emph{文献}[M]. 地点:出版社,年份.\n    \\bibitem{b}作者. \\emph{文献}[M]. 地点:出版社,年份.\n\\end{thebibliography}\n\n\\newpage\n\n\\begin{appendices}\n    \\renewcommand{\\thesection}{\\Alph{section}}\n    \\section{附录标题}\n        这里是附录. \n\\end{appendices}\n\n\\end{document}"
+
+var Suojin = "\\indent\\setlength{\\parindent}{2em}"
+
+var Hanghuang = "\\"
+
+var Tbg = "\\begin{tabular}{|"
+
+var Tcow = "c|"
+
+var Tdp = "}\n\t\\hline "
+
+var Ted = "\\hline\n\\end{tabular}\\"

@@ -1,24 +1,27 @@
 package models
 
+import "core/internal/types"
+
 type Pdf struct {
-	T1  string
-	T2  string
-	T3  string
-	T4  string
-	T5  string
-	T6  string
-	T7  string
-	T8  string
-	T9  string
-	T10 string
-	T11 string
-	T12 string
-	T13 string
-	T14 string
-	T15 string
-	T16 string
-	T17 string
-	T18 string
-	T19 string
-	T20 string
+	Title            string           `json:"title"`
+	Subject          string           `json:"subject"`
+	GroupLeaderName  string           `json:"groupLeaderName"`
+	GroupMemberName  string           `json:"groupMemberName"`
+	Classes          string           `json:"classes"`
+	Teacher          string           `json:"teacher"`
+	Company          string           `json:"company"`
+	LeaderWorkDivide []*types.Content `json:"leaderWorkDivide"`
+	MemberWorkDivide []*types.Content `json:"memberWorkDivide"`
+	Requirement      []*types.Content `json:"requirement"`
+	DemandAnalysis   []*types.Content `json:"demandAnalysis"`
+	OutlineDesign    []*types.Content `json:"outlineDesign"`
+	SourceCode       []*types.Content `json:"sourceCode"`
+	TestAndResult    []*types.Content `json:"testAndResult"`
+	Question         []*types.Content `json:"question"`
+	Summary          []*types.Content `json:"summary"`
 }
+
+//type Content struct {
+//	Type        string
+//	TextContent []string
+//}

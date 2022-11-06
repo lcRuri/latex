@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"strconv"
 	"time"
 )
 
@@ -66,28 +67,328 @@ func Md5(s string) string {
 }
 
 func PdfGenerate(pdf *models.Pdf, filename string, filepath string) error {
-	modelArticle := define.T1 + pdf.T1 +
-		define.T2 + pdf.T2 +
-		define.T3 + pdf.T3 +
-		define.T4 + pdf.T4 +
-		define.T5 + pdf.T5 +
-		define.T6 + pdf.T6 +
-		define.T7 + pdf.T7 +
-		define.T8 + pdf.T8 +
-		define.T9 + pdf.T9 +
-		define.T10 + pdf.T10 +
-		define.T11 + pdf.T11 +
-		define.T12 + pdf.T12 +
-		define.T13 + pdf.T13 +
-		define.T135 +
-		define.T14 + pdf.T14 +
-		define.T15 + pdf.T15 +
-		define.T16 + pdf.T16 +
-		define.T17 + pdf.T17 +
-		define.T18 + pdf.T18 +
-		define.T19 + pdf.T19 +
-		define.T20 + pdf.T20 +
-		define.T21
+
+	semester := "二"
+	if time.Now().Month() >= 9 && time.Now().Month() <= 12 {
+		semester = "一"
+	}
+	header := define.T1 + string(time.Now().Year()) +
+		define.T2 + semester +
+		define.T3 + pdf.Title +
+		define.T4 + pdf.Subject +
+		define.T5 + pdf.GroupLeaderName +
+		define.T6 + pdf.GroupMemberName +
+		define.T7 + pdf.Teacher +
+		define.T8 + pdf.Company +
+		define.T9 + string(time.Now().Year()) + string(time.Now().Month()) + string(time.Now().Day())
+
+	LeaderWorkDivideModel := ""
+	for _, strings := range pdf.LeaderWorkDivide {
+		if strings.Type == "paragraph" {
+			tmp := define.Suojin + strings.TextContent[0] + define.Hanghuang
+			LeaderWorkDivideModel += tmp
+		}
+		if strings.Type == "table" {
+			//row, _ := strconv.Atoi(strings.TextContent[0])
+			column, _ := strconv.Atoi(strings.TextContent[1])
+
+			tabletmp := define.Tbg
+			for i := 0; i < column; i++ {
+				tmp := define.Tcow
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Tdp
+
+			for i := 2; i < len(strings.TextContent); i++ {
+				tmp := ""
+				if (i-1)%column == 0 {
+					tmp = strings.TextContent[i] + "\\" + "\n\t\\hline "
+				} else {
+					tmp = strings.TextContent[i] + "&"
+				}
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Ted
+
+			LeaderWorkDivideModel += tabletmp
+		}
+	}
+
+	MemberWorkDivide := ""
+	for _, strings := range pdf.MemberWorkDivide {
+		if strings.Type == "paragraph" {
+			tmp := define.Suojin + strings.TextContent[0] + define.Hanghuang
+			MemberWorkDivide += tmp
+		}
+		if strings.Type == "table" {
+			//row, _ := strconv.Atoi(strings.TextContent[0])
+			column, _ := strconv.Atoi(strings.TextContent[1])
+
+			tabletmp := define.Tbg
+			for i := 0; i < column; i++ {
+				tmp := define.Tcow
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Tdp
+
+			for i := 2; i < len(strings.TextContent); i++ {
+				tmp := ""
+				if (i-1)%column == 0 {
+					tmp = strings.TextContent[i] + "\\" + "\n\t\\hline "
+				} else {
+					tmp = strings.TextContent[i] + "&"
+				}
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Ted
+
+			MemberWorkDivide += tabletmp
+		}
+	}
+
+	Requirement := ""
+	for _, strings := range pdf.Requirement {
+		if strings.Type == "paragraph" {
+			tmp := define.Suojin + strings.TextContent[0] + define.Hanghuang
+			Requirement += tmp
+		}
+		if strings.Type == "table" {
+			//row, _ := strconv.Atoi(strings.TextContent[0])
+			column, _ := strconv.Atoi(strings.TextContent[1])
+
+			tabletmp := define.Tbg
+			for i := 0; i < column; i++ {
+				tmp := define.Tcow
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Tdp
+
+			for i := 2; i < len(strings.TextContent); i++ {
+				tmp := ""
+				if (i-1)%column == 0 {
+					tmp = strings.TextContent[i] + "\\" + "\n\t\\hline "
+				} else {
+					tmp = strings.TextContent[i] + "&"
+				}
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Ted
+
+			Requirement += tabletmp
+		}
+	}
+
+	DemandAnalysis := ""
+	for _, strings := range pdf.DemandAnalysis {
+		if strings.Type == "paragraph" {
+			tmp := define.Suojin + strings.TextContent[0] + define.Hanghuang
+			DemandAnalysis += tmp
+		}
+		if strings.Type == "table" {
+			//row, _ := strconv.Atoi(strings.TextContent[0])
+			column, _ := strconv.Atoi(strings.TextContent[1])
+
+			tabletmp := define.Tbg
+			for i := 0; i < column; i++ {
+				tmp := define.Tcow
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Tdp
+
+			for i := 2; i < len(strings.TextContent); i++ {
+				tmp := ""
+				if (i-1)%column == 0 {
+					tmp = strings.TextContent[i] + "\\" + "\n\t\\hline "
+				} else {
+					tmp = strings.TextContent[i] + "&"
+				}
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Ted
+
+			DemandAnalysis += tabletmp
+		}
+	}
+
+	OutlineDesign := ""
+	for _, strings := range pdf.OutlineDesign {
+		if strings.Type == "paragraph" {
+			tmp := define.Suojin + strings.TextContent[0] + define.Hanghuang
+			OutlineDesign += tmp
+		}
+		if strings.Type == "table" {
+			//row, _ := strconv.Atoi(strings.TextContent[0])
+			column, _ := strconv.Atoi(strings.TextContent[1])
+
+			tabletmp := define.Tbg
+			for i := 0; i < column; i++ {
+				tmp := define.Tcow
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Tdp
+
+			for i := 2; i < len(strings.TextContent); i++ {
+				tmp := ""
+				if (i-1)%column == 0 {
+					tmp = strings.TextContent[i] + "\\" + "\n\t\\hline "
+				} else {
+					tmp = strings.TextContent[i] + "&"
+				}
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Ted
+
+			OutlineDesign += tabletmp
+		}
+	}
+
+	SourceCode := ""
+	for _, strings := range pdf.SourceCode {
+		if strings.Type == "paragraph" {
+			tmp := define.Suojin + strings.TextContent[0] + define.Hanghuang
+			SourceCode += tmp
+		}
+		if strings.Type == "table" {
+			//row, _ := strconv.Atoi(strings.TextContent[0])
+			column, _ := strconv.Atoi(strings.TextContent[1])
+
+			tabletmp := define.Tbg
+			for i := 0; i < column; i++ {
+				tmp := define.Tcow
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Tdp
+
+			for i := 2; i < len(strings.TextContent); i++ {
+				tmp := ""
+				if (i-1)%column == 0 {
+					tmp = strings.TextContent[i] + "\\" + "\n\t\\hline "
+				} else {
+					tmp = strings.TextContent[i] + "&"
+				}
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Ted
+
+			SourceCode += tabletmp
+		}
+	}
+
+	TestAndResult := ""
+	for _, strings := range pdf.TestAndResult {
+		if strings.Type == "paragraph" {
+			tmp := define.Suojin + strings.TextContent[0] + define.Hanghuang
+			TestAndResult += tmp
+		}
+		if strings.Type == "table" {
+			//row, _ := strconv.Atoi(strings.TextContent[0])
+			column, _ := strconv.Atoi(strings.TextContent[1])
+
+			tabletmp := define.Tbg
+			for i := 0; i < column; i++ {
+				tmp := define.Tcow
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Tdp
+
+			for i := 2; i < len(strings.TextContent); i++ {
+				tmp := ""
+				if (i-1)%column == 0 {
+					tmp = strings.TextContent[i] + "\\" + "\n\t\\hline "
+				} else {
+					tmp = strings.TextContent[i] + "&"
+				}
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Ted
+
+			TestAndResult += tabletmp
+		}
+	}
+
+	Question := ""
+	for _, strings := range pdf.Question {
+		if strings.Type == "paragraph" {
+			tmp := define.Suojin + strings.TextContent[0] + define.Hanghuang
+			Question += tmp
+		}
+		if strings.Type == "table" {
+			//row, _ := strconv.Atoi(strings.TextContent[0])
+			column, _ := strconv.Atoi(strings.TextContent[1])
+
+			tabletmp := define.Tbg
+			for i := 0; i < column; i++ {
+				tmp := define.Tcow
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Tdp
+
+			for i := 2; i < len(strings.TextContent); i++ {
+				tmp := ""
+				if (i-1)%column == 0 {
+					tmp = strings.TextContent[i] + "\\" + "\n\t\\hline "
+				} else {
+					tmp = strings.TextContent[i] + "&"
+				}
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Ted
+
+			Question += tabletmp
+		}
+	}
+
+	Summary := ""
+	for _, strings := range pdf.Summary {
+		if strings.Type == "paragraph" {
+			tmp := define.Suojin + strings.TextContent[0] + define.Hanghuang
+			Summary += tmp
+		}
+		if strings.Type == "table" {
+			//row, _ := strconv.Atoi(strings.TextContent[0])
+			column, _ := strconv.Atoi(strings.TextContent[1])
+
+			tabletmp := define.Tbg
+			for i := 0; i < column; i++ {
+				tmp := define.Tcow
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Tdp
+
+			for i := 2; i < len(strings.TextContent); i++ {
+				tmp := ""
+				if (i-1)%column == 0 {
+					tmp = strings.TextContent[i] + "\\" + "\n\t\\hline "
+				} else {
+					tmp = strings.TextContent[i] + "&"
+				}
+				tabletmp += tmp
+			}
+
+			tabletmp += define.Ted
+
+			Summary += tabletmp
+		}
+	}
+
+	modelArticle := header + LeaderWorkDivideModel + MemberWorkDivide + Requirement + DemandAnalysis + OutlineDesign + SourceCode + TestAndResult + Question + Summary
 
 	file, err := os.OpenFile(filepath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {

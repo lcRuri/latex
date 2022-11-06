@@ -27,29 +27,25 @@ func NewLatexGenerateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Lat
 func (l *LatexGenerateLogic) LatexGenerate(req *types.LatexGenerateRequest, userIdentity string) (resp *types.LatexGenerateReply, err error) {
 	// todo: add your logic here and delete this line
 	pdf := &models.Pdf{
-		T1:  req.T1,
-		T2:  req.T2,
-		T3:  req.T3,
-		T4:  req.T4,
-		T5:  req.T5,
-		T6:  req.T6,
-		T7:  req.T7,
-		T8:  req.T8,
-		T9:  req.T9,
-		T10: req.T10,
-		T11: req.T11,
-		T12: req.T12,
-		T13: req.T13,
-		T14: req.T14,
-		T15: req.T15,
-		T16: req.T16,
-		T17: req.T17,
-		T18: req.T18,
-		T19: req.T19,
-		T20: req.T20,
+		Title:            req.Title,
+		Subject:          req.Subject,
+		GroupLeaderName:  req.GroupLeaderName,
+		GroupMemberName:  req.GroupMemberName,
+		Classes:          req.Classes,
+		Teacher:          req.Teacher,
+		Company:          req.Company,
+		LeaderWorkDivide: req.LeaderWorkDivide,
+		MemberWorkDivide: req.MemberWorkDivide,
+		Requirement:      req.Requirement,
+		DemandAnalysis:   req.DemandAnalysis,
+		OutlineDesign:    req.OutlineDesign,
+		SourceCode:       req.SourceCode,
+		TestAndResult:    req.TestAndResult,
+		Question:         req.Question,
+		Summary:          req.Summary,
 	}
 
-	filename := pdf.T3 + pdf.T5
+	filename := pdf.Title + pdf.GroupLeaderName
 	filepath := "./file/njupt" + filename + ".tex"
 	helper.PdfGenerate(pdf, filename, filepath)
 	if err != nil {
