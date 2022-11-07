@@ -1,7 +1,6 @@
 package test
 
 import (
-	"fmt"
 	"log"
 	"testing"
 	"xorm.io/xorm"
@@ -26,5 +25,4 @@ func TestCon(t *testing.T) {
 		log.Fatal(err)
 	}
 
-	fmt.Println(md.Content)
 }
