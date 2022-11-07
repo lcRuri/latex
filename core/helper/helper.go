@@ -72,7 +72,7 @@ func PdfGenerate(pdf *models.Pdf, filename string, filepath string) error {
 	if time.Now().Month() >= 9 && time.Now().Month() <= 12 {
 		semester = "一"
 	}
-	header := define.T1 + string(time.Now().Year()) +
+	header := define.T1 + "2022" +
 		define.T2 + semester +
 		define.T3 + pdf.Title +
 		define.T4 + pdf.Subject +
@@ -80,7 +80,7 @@ func PdfGenerate(pdf *models.Pdf, filename string, filepath string) error {
 		define.T6 + pdf.GroupMemberName +
 		define.T7 + pdf.Teacher +
 		define.T8 + pdf.Company +
-		define.T9 + string(time.Now().Year()) + string(time.Now().Month()) + string(time.Now().Day())
+		define.T9 + "2022.11.1"
 
 	LeaderWorkDivideModel := ""
 	for _, strings := range pdf.LeaderWorkDivide {
@@ -388,7 +388,7 @@ func PdfGenerate(pdf *models.Pdf, filename string, filepath string) error {
 		}
 	}
 
-	modelArticle := header + LeaderWorkDivideModel + MemberWorkDivide + Requirement + DemandAnalysis + OutlineDesign + SourceCode + TestAndResult + Question + Summary
+	modelArticle := header + "} \n    \\end{tabular}\n\\end{table}\n\n\\newpage\n\n% 表格部分\n\\begin{tabular}{|c|r|r|r|r|r|r|}\n\t\\hline\n\t\\multirow{3}{*}{成员分工} & 组长 & \\multicolumn{5}{|c|}" + LeaderWorkDivideModel + "{\\; \\hspace{20em} \\; } \\\\ \\cline{2-7} \n        &  组员 & \\multicolumn{5}{|c|}" + MemberWorkDivide + "{\\; \\hspace{20em} \\; } \\\\ \\cline{2-7} " + "\\multirow{2}{*}{评分细则} & 组长 & \\multicolumn{5}{|c|}{xx} \\\\ \\cline{2-7}\n        &  组员 & \\multicolumn{5}{|c|}{\\; \\hspace{20em} \\; } \\\\ \\cline{2-7} \n        &  组员& \\multicolumn{5}{|c|}{\\; \\hspace{20em} \\; } \\\\ \\hline\n    \n    \\multirow{2}{*}{简短评语} & \\multicolumn{6}{|c|}{xx} \\\\ \n        &   \\multicolumn{6}{|c|}{\\; \\hspace{20em} \\; } \\\\\n        &   \\multicolumn{6}{|c|}{\\; \\hspace{20em} \\; } \\\\ \n        &   \\multicolumn{6}{|c|}{\\; \\hspace{20em} \\; } \\\\ \\hline\n\n    \\multirow{2}{*}{评分等级} \n        & \\multicolumn{2}{|c|}{\\; \\hspace{5em} \\; } & \\multicolumn{2}{|c|}{\\; \\hspace{5em} \\; } & \\multicolumn{2}{|c|}{\\; \\hspace{5em} \\; }\n        \\\\ \\cline{2-6}\n        & \\multicolumn{2}{|c|}{xx} & \\multicolumn{2}{|c|}{xx} & \\multicolumn{2}{|c|}{xx} \n        \\\\ \\cline{2-7}\n\n        & \\multicolumn{2}{|c|}{\\; \\hspace{5em} \\; } & \\multicolumn{2}{|c|}{\\; \\hspace{5em} \\; } & \\multicolumn{2}{|c|}{\\; \\hspace{5em} \\; }\n        \\\\ \\cline{2-6}\n        & \\multicolumn{2}{|c|}{xx} & \\multicolumn{2}{|c|}{xx} & \\multicolumn{2}{|c|}{xx} \n        \\\\ \\hline\n\n    {备注} & \\multicolumn{6}{|c|}{评分等级共五种：优秀、良好、中等、及格、不及格} \\\\ \\hline \n\\end{tabular}\n\n\\newpage\n\\begin{center}\n    {\\songti \\zihao{0} \\textbf{{" + pdf.Title + "}程序设计报告} }\n\\end{center}\n\n\\section{课题内容和要求}" + Requirement + "\\section{需求分析}" + DemandAnalysis + "\\section{概要设计}" + OutlineDesign + "\\section{源程序代码}" + SourceCode + "\\section{测试数据及其结果分析}" + TestAndResult + "\\section{调试过程中的问题}" + Question + "\\section{课程设计总结}" + Summary + "\\newpage\n\n\\begin{thebibliography}{99}\n    \\bibitem{a}作者. \\emph{文献}[M]. 地点:出版社,年份.\n    \\bibitem{b}作者. \\emph{文献}[M]. 地点:出版社,年份.\n\\end{thebibliography}\n\n\\newpage\n\n\\begin{appendices}\n    \\renewcommand{\\thesection}{\\Alph{section}}\n    \\section{附录标题}\n        这里是附录. \n\\end{appendices}\n\n\\end{document}"
 
 	file, err := os.OpenFile(filepath, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
