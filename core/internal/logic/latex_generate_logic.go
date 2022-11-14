@@ -67,7 +67,7 @@ func (l *LatexGenerateLogic) LatexGenerate(req *types.LatexGenerateRequest, user
 	resp = new(types.LatexGenerateReply)
 	resp.ResponseData.Code = 200
 	resp.ResponseData.Msg = "pdf文档生成成功"
-	resp.Filename = "njupt" + filename
+	resp.Filename = filename
 
 	return
 }
