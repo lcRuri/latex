@@ -92,7 +92,7 @@ func PdfGenerate(filepath, filename, content string) error {
 
 func osPdf(filename string) {
 	getwd, _ := os.Getwd()
-	f := getwd + "/file/" + filename
+	f := getwd + "/file/" + filename + ".tex"
 	c2 := exec.Command("xelatex", "-output-directory=pdf", f)
 	c2.Stdout = os.Stdout
 	_ = c2.Start()
