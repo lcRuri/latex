@@ -30,7 +30,7 @@ type PdfReply {
 }
 
 type LatexGenerateRequest {
-	//Filename string `json:"content"`
+	Content string `json:"content"`
 }
 
 type Content {

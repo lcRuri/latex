@@ -9,6 +9,7 @@ type PdfReply struct {
 }
 
 type LatexGenerateRequest struct {
+	Content string `json:"content"`
 }
 
 type Content struct {

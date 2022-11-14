@@ -25,13 +25,13 @@ func NewLatexGenerateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Lat
 	}
 }
 
-func (l *LatexGenerateLogic) LatexGenerate(req *types.LatexGenerateRequest, userIdentity, content string) (resp *types.LatexGenerateReply, err error) {
+func (l *LatexGenerateLogic) LatexGenerate(req *types.LatexGenerateRequest, userIdentity string) (resp *types.LatexGenerateReply, err error) {
 	// todo: add your logic here and delete this line
 
 	//filename := pdf.Title + pdf.GroupLeaderName
 	filename := helper.UUid()
 	filepath := define.BaseUploadPath + "/" + filename + ".tex"
-	helper.PdfGenerate(filepath, filename, content)
+	helper.PdfGenerate(filepath, filename, req.Content)
 	if err != nil {
 		l.Logger.Error(err)
 		return

@@ -1,8 +1,6 @@
 package handler
 
 import (
-	"io/ioutil"
-	"log"
 	"net/http"
 
 	"core/internal/logic"
@@ -21,18 +19,18 @@ func LatexGenerateHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := logic.NewLatexGenerateLogic(r.Context(), svcCtx)
-		file, _, err := r.FormFile("file")
-		if err != nil {
-			log.Printf("r.FormFile(file) err:%v", err)
-			return
-		}
+		//file, _, err := r.FormFile("file")
+		//if err != nil {
+		//	log.Printf("r.FormFile(file) err:%v", err)
+		//	return
+		//}
+		//
+		//content, err := ioutil.ReadAll(file)
+		//if err != nil {
+		//	log.Fatal("ioutil.ReadAll(file)", err)
+		//}
 
-		content, err := ioutil.ReadAll(file)
-		if err != nil {
-			log.Fatal("ioutil.ReadAll(file)", err)
-		}
-
-		resp, err := l.LatexGenerate(&req, r.Header.Get("UserIdentity"), string(content))
+		resp, err := l.LatexGenerate(&req, r.Header.Get("UserIdentity"))
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
