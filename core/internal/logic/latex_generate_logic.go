@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"core/define"
 	"core/helper"
 	"core/internal/svc"
 	"core/internal/types"
@@ -24,30 +25,13 @@ func NewLatexGenerateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Lat
 	}
 }
 
-func (l *LatexGenerateLogic) LatexGenerate(req *types.LatexGenerateRequest, userIdentity string) (resp *types.LatexGenerateReply, err error) {
+func (l *LatexGenerateLogic) LatexGenerate(req *types.LatexGenerateRequest, userIdentity, content string) (resp *types.LatexGenerateReply, err error) {
 	// todo: add your logic here and delete this line
-	pdf := &models.Pdf{
-		Title:            req.Title,
-		Subject:          req.Subject,
-		GroupLeaderName:  req.GroupLeaderName,
-		GroupMemberName:  req.GroupMemberName,
-		Classes:          req.Classes,
-		Teacher:          req.Teacher,
-		Company:          req.Company,
-		LeaderWorkDivide: req.LeaderWorkDivide,
-		MemberWorkDivide: req.MemberWorkDivide,
-		Requirement:      req.Requirement,
-		DemandAnalysis:   req.DemandAnalysis,
-		OutlineDesign:    req.OutlineDesign,
-		SourceCode:       req.SourceCode,
-		TestAndResult:    req.TestAndResult,
-		Question:         req.Question,
-		Summary:          req.Summary,
-	}
 
-	filename := pdf.Title + pdf.GroupLeaderName
-	filepath := "./file/njupt" + filename + ".tex"
-	helper.PdfGenerate(pdf, filename, filepath)
+	//filename := pdf.Title + pdf.GroupLeaderName
+	filename := helper.UUid()
+	filepath := define.BaseUploadPath + "/" + filename + ".tex"
+	helper.PdfGenerate(filepath, filename, content)
 	if err != nil {
 		l.Logger.Error(err)
 		return

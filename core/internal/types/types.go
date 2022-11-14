@@ -9,22 +9,6 @@ type PdfReply struct {
 }
 
 type LatexGenerateRequest struct {
-	Title            string     `json:"title"`
-	Subject          string     `json:"subject"`
-	GroupLeaderName  string     `json:"groupLeaderName"`
-	GroupMemberName  string     `json:"groupMemberName"`
-	Classes          string     `json:"classes"`
-	Teacher          string     `json:"teacher"`
-	Company          string     `json:"company"`
-	LeaderWorkDivide []*Content `json:"leaderWorkDivide"`
-	MemberWorkDivide []*Content `json:"memberWorkDivide"`
-	Requirement      []*Content `json:"requirement"`
-	DemandAnalysis   []*Content `json:"demandAnalysis"`
-	OutlineDesign    []*Content `json:"outlineDesign"`
-	SourceCode       []*Content `json:"sourceCode"`
-	TestAndResult    []*Content `json:"testAndResult"`
-	Question         []*Content `json:"question"`
-	Summary          []*Content `json:"summary"`
 }
 
 type Content struct {
