@@ -20,6 +20,15 @@ service core-api{
 	
 	@handler pdf
 	get /api/v1/download(PdfRequest) returns (PdfReply)
+	
+	@handler uploadPic
+	get /api/v1/pic (PicRequest) returns (PicReply)
+}
+
+type PicRequest{}
+
+type PicReply {
+	ResponseData Reply `json:"code"`
 }
 
 type PdfRequest {

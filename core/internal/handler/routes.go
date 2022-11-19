@@ -39,6 +39,11 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/api/v1/download",
 					Handler: pdfHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/api/v1/pic",
+					Handler: uploadPicHandler(serverCtx),
+				},
 			}...,
 		),
 	)
